@@ -1,0 +1,128 @@
+@font-face {
+  font-family: quicksand-light;
+  src: url('../fonts/Quicksand-Light.ttf');
+}
+
+@font-face {
+  font-family: quicksand-regular;
+  src: url('../fonts/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: quicksand-medium;
+  src: url('../fonts/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: quicksand-bold;
+  src: url('../fonts/Quicksand-Bold.ttf');
+}
+
+@font-face {
+  font-family: quicksand-semibold;
+  src: url('../fonts/Quicksand-SemiBold.ttf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #26A9E7;
+  color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: quicksand-bold;
+}
+
+span,
+p, 
+button,
+select {
+  font-family: quicksand-regular;
+  font-size: 1rem;
+}
+
+.container {
+  color: black;
+  max-width: 442px;
+  background-color: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 1rem;
+  line-height: 1.5rem;
+}
+
+.form-container {
+  justify-content: center;
+  text-align: center;
+}
+
+.button-styles {
+  background-color: #fff;
+  border: 2px solid #26A9E7;
+  width: 125px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.button-styles:hover {
+  cursor: pointer;
+}
+
+.button-selected {
+  background-color: #26A9E7;
+  color: #fff;
+}
+
+.button-generator-styles {
+  background-color: #fff;
+  border: 2px solid #26A9E7;
+  width: 200px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  outline: none;
+  padding: 5px 0;
+  margin: 3rem auto;
+}
+
+.button-generator-styles:hover {
+  cursor: pointer;
+}
+
+select {
+  border: 2px solid #26A9E7;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  outline: none;
+}
+
+select:invalid{
+  color: grey;
+  border: 2px solid grey
+}
+
+.movies-container {
+  justify-content: space-between;
+
+}
+
+.movies-container img {
+  max-width: 240px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
