@@ -101,3 +101,12 @@ select:invalid{
   color: grey;
   border: 2px solid grey
 }
+
+.movies-container {
+  justify-content: space-between;
+
+}
+
+.movies-container img {
+  max-width: 250px;
+}

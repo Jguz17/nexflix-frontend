@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
+import MovieCard from './MovieCard'
 
 function App () {
 
   const [genres, setGenres] = useState([])
+  const [movies, setMovies] = useState([])
+
   const API_KEY = 'b56714604235287b729922925d441c67';
   useEffect(() => {
     // GET LIST OF GENRES
@@ -24,10 +27,13 @@ function App () {
     fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${GENRE_ID}&page=${PAGE_NUMBER}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data.results)
+      // console.log(data.results);
+      let moviesArr = [];
       for (let counter = 0; counter < 3; counter++) {
-        console.log(data.results[Math.floor(Math.random() * data.results.length)])
+        let moviesHolder = data.results[Math.floor(Math.random() * data.results.length)];
+        moviesArr.push(moviesHolder)
       }
+      setMovies(moviesArr)
     })
   }
 
@@ -59,9 +65,13 @@ function App () {
                 </form>
               </Grid>
             </Grid>
-            <Grid item container>
-              <button className='button-generator-styles' onClick={getValue}>Show me my results</button>
-
+            <button className='button-generator-styles' onClick={getValue}>Show me my results</button>
+            <Grid className='movies-container' item container xs={12}>
+                {movies.map(movie => {
+                  return <Grid item className='movie-card' xs={3}>
+                    <MovieCard movie={movie}/>
+                  </Grid>
+                })}
             </Grid>
           </Grid>
           <Grid item xs={2}/>
