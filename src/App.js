@@ -23,7 +23,12 @@ function App () {
     // https://api.themoviedb.org/3/discover/movie?api_key=b56714604235287b729922925d441c67&with_genres=28
     fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${GENRE_ID}&page=${PAGE_NUMBER}`)
     .then((res) => res.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+      console.log(data.results)
+      for (let counter = 0; counter < 3; counter++) {
+        console.log(data.results[Math.floor(Math.random() * data.results.length)])
+      }
+    })
   }
 
   return (
