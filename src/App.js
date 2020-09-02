@@ -51,6 +51,7 @@ function App () {
         moviesArr.push(moviesHolder)
       }
       setMovies(moviesArr)
+      console.log(data.results)
     })
   }
 

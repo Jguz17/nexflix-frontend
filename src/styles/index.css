@@ -95,7 +95,11 @@ select {
   border-radius: 5px;
   outline: none;
   padding: 5px 0;
-  margin: 0 auto;
+  margin: 3rem auto;
+}
+
+.button-generator-styles:hover {
+  cursor: pointer;
 }
 
 select {
@@ -117,5 +121,8 @@ select:invalid{
 }
 
 .movies-container img {
-  max-width: 250px;
+  max-width: 240px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
