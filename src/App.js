@@ -6,8 +6,10 @@ function App () {
 
   const [genres, setGenres] = useState([])
   const [movies, setMovies] = useState([])
+  const [types, setTypes] = useState([])
 
   const API_KEY = 'b56714604235287b729922925d441c67';
+
   useEffect(() => {
     // GET LIST OF GENRES
     // https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
@@ -17,6 +19,21 @@ function App () {
       setGenres(apiData.genres)
     })
   })
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
+  const handleClick = (e) => {
+    if (e.target.id === 'movie') {
+      e.target.className += ' button-selected';
+      document.getElementById('tv').className = 'button-styles';
+    } else if (e.target.id === 'tv') {
+      e.target.className += ' button-selected';
+      document.getElementById('movie').className = 'button-styles';
+    }
+    setTypes(e.target.id)
+  }
 
   const getValue = () => {
     const x = document.getElementById('genres-dropdown').selectedIndex;
@@ -24,7 +41,7 @@ function App () {
     const PAGE_NUMBER = ((Math.floor(Math.random() * (500 - 0) + 1)))
     // GET MOVIES IN GENRE
     // https://api.themoviedb.org/3/discover/movie?api_key=b56714604235287b729922925d441c67&with_genres=28
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${GENRE_ID}&page=${PAGE_NUMBER}`)
+    fetch(`https://api.themoviedb.org/3/discover/${types}?api_key=${API_KEY}&with_genres=${GENRE_ID}&page=${PAGE_NUMBER}`)
     .then((res) => res.json())
     .then((data) => {
       // console.log(data.results);
@@ -51,12 +68,12 @@ function App () {
               </Grid>
               <Grid item xs={2}/>
               <Grid item xs={5} container className='form-container container' direction='column'>
-                <form>
+                <form onSubmit={(e) => handleSubmit(e)}>
                   <p>Select Movie Or Show</p>
-                    <button className='button-styles' style={{marginRight: '1rem'}}>Movie</button>
-                    <button className='button-styles'>Show</button>
+                  <button onClick={(e) => handleClick(e)} id='movie' className='button-styles' style={{marginRight: '1rem'}}>Movie</button>
+                  <button onClick={(e) => handleClick(e)} id='tv' className='button-styles'>Show</button>
                   <p>Select Genre</p>
-                  <select id='genres-dropdown' required>
+                  <select id='genres-dropdown'>
                     <option value="" disabled selected hidden></option>
                     {genres.map(genre => {
                         return <option key={genre.id} value={genre.id}>{genre.name}</option>
