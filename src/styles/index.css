@@ -103,6 +103,7 @@ select {
 }
 
 select {
+  width: 150px;
   border: 2px solid #26A9E7;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;

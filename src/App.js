@@ -7,37 +7,24 @@ function App () {
   const [genres, setGenres] = useState([])
   const [movies, setMovies] = useState([])
   const [types, setTypes] = useState([])
+  const [pageNumber, setPageNumber] = useState([])
 
   const API_KEY = 'b56714604235287b729922925d441c67';
-
-  // useEffect(() => {
-  //   // GET LIST OF GENRES
-  //   // https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
-  //   fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
-  //   .then((res) => res.json())
-  //   .then((apiData) => {
-  //     setGenres(apiData.genres)
-  //   })
-  // })
   
   const handleSubmit = (e) => {
     e.preventDefault()
   }
 
-  // https://api.themoviedb.org/3/genre/tv/list?api_key=b56714604235287b729922925d441c67&language=en-US
-
-  const handleClick = (e) => {
+  const selectType = (e) => {
     let setType = e.target.id;
 
     async function getGenres(typez) {
       let response = await fetch(`https://api.themoviedb.org/3/genre/${typez}/list?api_key=b56714604235287b729922925d441c67&language=en-US`);
       let genresAsync = await response.json();
 
-      fetch(`https://api.themoviedb.org/3/genre/${typez}/list?api_key=b56714604235287b729922925d441c67&language=en-US`)
-      .then((res) => res.json())
-      .then((data) => {
-        setGenres(data.genres)
-      })
+      setGenres(genresAsync.genres)
+      setTypes(typez)
+
     }
 
     if (setType === 'movie') {
@@ -50,26 +37,34 @@ function App () {
       document.getElementById('movie').className = 'button-styles';
 
       getGenres('tv')
-    }
+    } 
   }
 
-  const getValue = () => {
+  const getValue = (e) => {
+    console.log(e.target)
+    // console.log('trig')
     const x = document.getElementById('genres-dropdown').selectedIndex;
     const GENRE_ID = document.getElementsByTagName("option")[x].value;
+
+    // console.log(GENRE_ID)
     const PAGE_NUMBER = ((Math.floor(Math.random() * (500 - 0) + 1)))
-    // GET MOVIES IN GENRE
-    // https://api.themoviedb.org/3/discover/movie?api_key=b56714604235287b729922925d441c67&with_genres=28
-    fetch(`https://api.themoviedb.org/3/discover/${types}?api_key=${API_KEY}&with_genres=${GENRE_ID}&page=${PAGE_NUMBER}`)
+
+    // // GET MOVIES IN GENRE
+    // // https://api.themoviedb.org/3/discover/movie?api_key=b56714604235287b729922925d441c67&with_genres=28
+    fetch(`https://api.themoviedb.org/3/discover/${types}?api_key=${API_KEY}&with_genres=${GENRE_ID}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      let moviesArr = [];
-      for (let counter = 0; counter < 3; counter++) {
-        let moviesHolder = data.results[Math.floor(Math.random() * data.results.length)];
-        moviesArr.push(moviesHolder)
-      }
-      setMovies(moviesArr)
-      console.log(data.results)
+      console.log(console.log(data.total_pages))
+      fetch(`https://api.themoviedb.org/3/discover/${types}?api_key=${API_KEY}&with_genres=${GENRE_ID}&page=${PAGE_NUMBER}`)
+      .then((res) => res.json())
+      .then ((movieData) => {
+        let moviesArr = [];
+        for (let counter = 0; counter < 3; counter++) {
+          let moviesHolder = movieData.results[Math.floor(Math.random() * movieData.results.length)];
+          moviesArr.push(moviesHolder)
+        }
+        setMovies(moviesArr)
+      })
     })
   }
 
@@ -89,11 +84,12 @@ function App () {
               <Grid item xs={5} container className='form-container container' direction='column'>
                 <form onSubmit={(e) => handleSubmit(e)}>
                   <p>Select Movie Or Show</p>
-                  <button onClick={(e) => handleClick(e)} id='movie' className='button-styles' style={{marginRight: '1rem'}}>Movie</button>
-                  <button onClick={(e) => handleClick(e)} id='tv' className='button-styles'>Show</button>
+                  <button onClick={(e) => selectType(e)} id='movie' className='button-styles' style={{marginRight: '1rem'}}>Movie</button>
+                  <button onClick={(e) => selectType(e)} id='tv' className='button-styles'>Show</button>
                   <p>Select Genre</p>
                   <select id='genres-dropdown' required>
                     <option value="" disabled selected hidden></option>
+                    {console.log(types)}
                     {genres.map(genre => {
                         return <option key={genre.id} value={genre.id}>{genre.name}</option>
                     })}
@@ -101,7 +97,7 @@ function App () {
                 </form>
               </Grid>
             </Grid>
-            <button className='button-generator-styles' onClick={getValue}>Show me my results</button>
+            <button className='button-generator-styles' onClick={(e) => getValue(e)}>Show me my results</button>
             <Grid className='movies-container' item container xs={12}>
                 {movies.map(movie => {
                   return <Grid item className='movie-card' xs={3}>
