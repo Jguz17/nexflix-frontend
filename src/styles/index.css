@@ -95,7 +95,7 @@ select {
   border-radius: 5px;
   outline: none;
   padding: 5px 0;
-  margin: 3rem auto;
+  margin: 2rem auto;
 }
 
 .button-generator-styles:hover {
@@ -103,11 +103,13 @@ select {
 }
 
 select {
+  width: 150px;
   border: 2px solid #26A9E7;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   outline: none;
+  cursor: pointer;
 }
 
 select:invalid{
@@ -125,4 +127,25 @@ select:invalid{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+
+@media only screen and (max-width: 959px) {
+  
+  .intro-and-form-container {
+    justify-content: center;
+  }
+
+  .intro-and-form-container .intro-container {
+    margin-bottom: 2rem;
+  } 
+  
+}
+
+@media only screen and (max-width: 719px) {
+  .movies-container {
+    justify-content: center;
+  }
+  .movies-container .movie-card {
+    margin-bottom: 1rem;
+  }
 }
