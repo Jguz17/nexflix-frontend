@@ -77,11 +77,11 @@ function App () {
               <h1 style={{ fontSize: '4rem', letterSpacing: '.5rem', margin: '1rem 0' }}>Nexflix</h1>
             </Grid>
             <Grid item container xs={12} className='intro-and-form-container'>
-              <Grid item xs={5} className='intro-container container'>
+              <Grid item md={5} className='intro-container container'>
                 <p>When you are in the mood to watch something new but don’t know where to start. Fill out the questions below and then click the button to get your results.</p>
               </Grid>
-              <Grid item xs={2}/>
-              <Grid item xs={5} container className='form-container container' direction='column'>
+              <Grid item md={2}/>
+              <Grid item md={5} container className='form-container container' direction='column'>
                 <form onSubmit={(e) => handleSubmit(e)}>
                   <p>Select Movie Or Show</p>
                   <button onClick={(e) => selectType(e)} id='movie' className='button-styles' style={{marginRight: '1rem'}}>Movie</button>
@@ -100,7 +100,7 @@ function App () {
             <button className='button-generator-styles' onClick={(e) => getValue(e)}>Show me my results</button>
             <Grid className='movies-container' item container xs={12}>
                 {movies.map(movie => {
-                  return <Grid item className='movie-card' xs={3}>
+                  return <Grid item className='movie-card' md={4} lg={3}>
                     <MovieCard movie={movie}/>
                   </Grid>
                 })}

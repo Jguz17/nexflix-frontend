@@ -109,6 +109,7 @@ select {
   -moz-border-radius: 5px;
   border-radius: 5px;
   outline: none;
+  cursor: pointer;
 }
 
 select:invalid{
@@ -126,4 +127,25 @@ select:invalid{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+
+@media only screen and (max-width: 959px) {
+  
+  .intro-and-form-container {
+    justify-content: center;
+  }
+
+  .intro-and-form-container .intro-container {
+    margin-bottom: 2rem;
+  } 
+  
+}
+
+@media only screen and (max-width: 719px) {
+  .movies-container {
+    justify-content: center;
+  }
+  .movies-container .movie-card {
+    margin-bottom: 1rem;
+  }
 }
