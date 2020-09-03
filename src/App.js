@@ -87,7 +87,7 @@ function App () {
                   <button onClick={(e) => selectType(e)} id='movie' className='button-styles' style={{marginRight: '1rem'}}>Movie</button>
                   <button onClick={(e) => selectType(e)} id='tv' className='button-styles'>Show</button>
                   <p>Select Genre</p>
-                  <select id='genres-dropdown' required>
+                  <select id='genres-dropdown'>
                     <option value="" disabled selected hidden></option>
                     {console.log(types)}
                     {genres.map(genre => {
