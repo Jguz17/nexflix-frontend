@@ -10,29 +10,47 @@ function App () {
 
   const API_KEY = 'b56714604235287b729922925d441c67';
 
-  useEffect(() => {
-    // GET LIST OF GENRES
-    // https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
-    .then((res) => res.json())
-    .then((apiData) => {
-      setGenres(apiData.genres)
-    })
-  })
+  // useEffect(() => {
+  //   // GET LIST OF GENRES
+  //   // https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
+  //   fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
+  //   .then((res) => res.json())
+  //   .then((apiData) => {
+  //     setGenres(apiData.genres)
+  //   })
+  // })
   
   const handleSubmit = (e) => {
     e.preventDefault()
   }
 
+  // https://api.themoviedb.org/3/genre/tv/list?api_key=b56714604235287b729922925d441c67&language=en-US
+
   const handleClick = (e) => {
-    if (e.target.id === 'movie') {
+    let setType = e.target.id;
+
+    async function getGenres(typez) {
+      let response = await fetch(`https://api.themoviedb.org/3/genre/${typez}/list?api_key=b56714604235287b729922925d441c67&language=en-US`);
+      let genresAsync = await response.json();
+
+      fetch(`https://api.themoviedb.org/3/genre/${typez}/list?api_key=b56714604235287b729922925d441c67&language=en-US`)
+      .then((res) => res.json())
+      .then((data) => {
+        setGenres(data.genres)
+      })
+    }
+
+    if (setType === 'movie') {
       e.target.className += ' button-selected';
       document.getElementById('tv').className = 'button-styles';
-    } else if (e.target.id === 'tv') {
+
+      getGenres('movie')
+    } else if (setType === 'tv') {
       e.target.className += ' button-selected';
       document.getElementById('movie').className = 'button-styles';
+
+      getGenres('tv')
     }
-    setTypes(e.target.id)
   }
 
   const getValue = () => {
@@ -44,7 +62,7 @@ function App () {
     fetch(`https://api.themoviedb.org/3/discover/${types}?api_key=${API_KEY}&with_genres=${GENRE_ID}&page=${PAGE_NUMBER}`)
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data.results);
+      console.log(data);
       let moviesArr = [];
       for (let counter = 0; counter < 3; counter++) {
         let moviesHolder = data.results[Math.floor(Math.random() * data.results.length)];
@@ -61,7 +79,7 @@ function App () {
           <Grid item xs={2}/>
           <Grid item container xs={8}>
             <Grid item xs={12} style={{ textAlign: 'center' }}>
-              <h1 style={{ fontSize: '4rem', letterSpacing: '.5rem' }}>Nexflix</h1>
+              <h1 style={{ fontSize: '4rem', letterSpacing: '.5rem', margin: '1rem 0' }}>Nexflix</h1>
             </Grid>
             <Grid item container xs={12} className='intro-and-form-container'>
               <Grid item xs={5} className='intro-container container'>
@@ -74,7 +92,7 @@ function App () {
                   <button onClick={(e) => handleClick(e)} id='movie' className='button-styles' style={{marginRight: '1rem'}}>Movie</button>
                   <button onClick={(e) => handleClick(e)} id='tv' className='button-styles'>Show</button>
                   <p>Select Genre</p>
-                  <select id='genres-dropdown'>
+                  <select id='genres-dropdown' required>
                     <option value="" disabled selected hidden></option>
                     {genres.map(genre => {
                         return <option key={genre.id} value={genre.id}>{genre.name}</option>
